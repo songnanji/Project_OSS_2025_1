@@ -1,6 +1,5 @@
 from budget import Budget
 
-
 def main():
     budget = Budget()
 
@@ -9,7 +8,10 @@ def main():
         print("1. 지출 추가")
         print("2. 지출 목록 보기")
         print("3. 총 지출 보기")
-        print("4. 종료")
+        print("4. 수입 추가")
+        print("5. 수입 목록 보기")
+        print("6. 수입 항목 검색")
+        print("7. 종료")
         choice = input("선택 > ")
 
         if choice == "1":
@@ -29,12 +31,31 @@ def main():
             budget.total_spent()
 
         elif choice == "4":
+            category = input("카테고리 (예: 월급, 용돈 등): ")
+            description = input("설명: ")
+            try:
+                amount = int(input("금액(원): "))
+            except ValueError:
+                print("잘못된 금액입니다.\n")
+                continue
+            budget.add_income(category, description, amount)
+
+        elif choice == "5":
+            budget.list_incomes()
+
+        elif choice == "6":
+            keyword = input("검색할 키워드를 입력하세요: ").strip()
+            if keyword:
+                budget.search_income_by_keyword(keyword)
+            else:
+                print("키워드를 입력해주세요.\n")
+
+        elif choice == "7":
             print("가계부를 종료합니다.")
             break
 
         else:
             print("잘못된 선택입니다.\n")
-
 
 if __name__ == "__main__":
     main()
